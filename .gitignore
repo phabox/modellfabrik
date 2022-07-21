@@ -1,0 +1,15 @@
+*.suo
+*.user
+*.ncb
+Debug/
+Release/
+obj/
+TestStore/
+packages/
+coveragereport/
+node_modules/
+/.vs/ProjectSettings.json
+/.vs/VSWorkspaceState.json
+/.vs/slnx.sqlite
+*.dtbcache.v2
+*.cobertura.xml

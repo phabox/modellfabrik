@@ -1,0 +1,3093 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> ProductConfigurator</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Configurator</h2><h3>Modules / Helper</h3><ul><li><a href="module-Assets.html">Assets</a></li><li><a href="module-Materials.html">Materials</a></li></ul><h3>Modules</h3><ul><li><a href="module-ConfigurationSummary.html">ConfigurationSummary</a></li><li><a href="module-ProductConfigurator.html">ProductConfigurator</a></li></ul></div><div class="category"><h2>Constants</h2><h3>Modules</h3><ul><li><a href="module-GraphQL.html">GraphQL</a></li><li><a href="module-Misc.html">Misc</a></li></ul></div><div class="category"><h2>Orders</h2><h3>Modules</h3><ul><li><a href="module-Order.html">Order</a></li><li><a href="module-OrderList.html">OrderList</a></li><li><a href="module-OrderPreview.html">OrderPreview</a></li></ul></div><div class="category"><h2>Shared</h2><h3>Modules</h3><ul><li><a href="module-Error.html">Error</a></li><li><a href="module-PageHeader.html">PageHeader</a></li></ul></div><div class="category"><h2>Views</h2><h3>Modules</h3><ul><li><a href="module-About.html">About</a></li><li><a href="module-NotFound.html">NotFound</a></li><li><a href="module-Orders.html">Orders</a></li><li><a href="module-Shop.html">Shop</a></li></ul></div><div class="category"><h2>Webshop</h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Module</p>
+                    <h1>ProductConfigurator</h1>
+                </header>
+                
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>The company displays the product configurator.
+It shows an empty plate whichs allows stacking cylinders of different heights on top of each other
+The component fetches the settings of the scene from the backend server. This includes the possible heights and colors
+of the cylinders and also the maximum height of each cylinder stack</p></div></div></p>
+<h3 class="subsection-title" style="margin-top: 1em" data-jsdoc-vuejs="section-data">Data</h3>
+<table data-jsdoc-vuejs="table-data">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Default value</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody><tr>
+        <td><code>logik</code></td>
+        <td>Object</td>
+        <td>-</td>
+        <td>Contains the logic of the scene. This includes the internal state of the configurator and the placed cylinders</td>
+    </tr><tr>
+        <td><code>babylon</code></td>
+        <td>Object</td>
+        <td>-</td>
+        <td>Data that is necessary for the BabylonJS render library. Includes the canvas and the scene</td>
+    </tr><tr>
+        <td><code>scene</code></td>
+        <td>Object</td>
+        <td>-</td>
+        <td>Contains basic elements of the scene such as light, meshes, and materials</td>
+    </tr><tr>
+        <td><code>gui</code></td>
+        <td>Object</td>
+        <td>-</td>
+        <td>GUI information, such as panels and buttons</td>
+    </tr></tbody>
+</table>
+<h3 class="subsection-title" style="margin-top: 1em" data-jsdoc-vuejs="section-computed">Computed</h3>
+<table data-jsdoc-vuejs="table-computed">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody><tr>
+        <td><code>settings</code></td>
+        <td>Object</td>
+        <td>The cylinder property settings including available heights and colors</td>
+    </tr><tr>
+        <td><code>leftCylinders</code></td>
+        <td>Array.&lt;Object></td>
+        <td>The cylinders objects on the left (A) stack</td>
+    </tr><tr>
+        <td><code>rightCylinders</code></td>
+        <td>Array.&lt;Object></td>
+        <td>The cylinders objects on the right (B) stack</td>
+    </tr><tr>
+        <td><code>allCylinders</code></td>
+        <td>Array.&lt;Object></td>
+        <td>The union of leftCylinders and rightCylinders</td>
+    </tr></tbody>
+</table>
+<div class="container-overview"><div><p></div>
+        
+
+        
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Methods</h1>
+            <div class="members">
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="addColorButtons">
+        <a class="href-link" href="#addColorButtons">#</a>
+        
+        <span class="code-name">
+            
+                addColorButtons<span class="signature">(cylinders, panel)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Adds buttons to the UI that allow changing color of a cylinder</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>cylinders</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The cylinder-configurations containg all available colors, that each cylinder can have</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>panel</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">StackPanel</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Panel that the buttons will be added to</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line542">line 542</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="addCylinderButtons">
+        <a class="href-link" href="#addCylinderButtons">#</a>
+        
+        <span class="code-name">
+            
+                addCylinderButtons<span class="signature">(cylinders, panel)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Adds one button for each available cylinder height to a panel</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>cylinders</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The cylinder-configurations containg all available heights, that each cylinder can have</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>panel</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">StackPanel</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The panel that the buttons will be added to</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line592">line 592</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="addDeleteCylinderButton">
+        <a class="href-link" href="#addDeleteCylinderButton">#</a>
+        
+        <span class="code-name">
+            
+                addDeleteCylinderButton<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Adds a delete button to a panel</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">StackPanel</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The panel that the button will be added to</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line627">line 627</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="addHeader">
+        <a class="href-link" href="#addHeader">#</a>
+        
+        <span class="code-name">
+            
+                addHeader<span class="signature">(panel)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Adds a header to a panel</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>panel</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">StackPanel</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The panel, that the header will be added to</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line574">line 574</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="canPlaceLeft">
+        <a class="href-link" href="#canPlaceLeft">#</a>
+        
+        <span class="code-name">
+            
+                canPlaceLeft<span class="signature">(cylinder)</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Calculates if the cylinder can be placed on top of the left stack</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>cylinder</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The cylinder that shall be placed</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code></code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">distanceTreshold</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The threshold to consider</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line414">line 414</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><ul>
+<li>true if the distance to the left stack is smaller than <code>distanceTheshold</code>, false otherwise</li>
+</ul></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">boolean</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="canPlaceRight">
+        <a class="href-link" href="#canPlaceRight">#</a>
+        
+        <span class="code-name">
+            
+                canPlaceRight<span class="signature">(cylinder)</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Calculates if the cylinder can be placed on top of the left stack</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>cylinder</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The cylinder that shall be placed</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code></code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">distanceTreshold</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The threshold to consider</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line451">line 451</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><ul>
+<li>true if the distance to the left stack is smaller than <code>distanceTheshold</code>, false otherwise</li>
+</ul></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">boolean</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="changeBottomPanelVisibility">
+        <a class="href-link" href="#changeBottomPanelVisibility">#</a>
+        
+        <span class="code-name">
+            
+                changeBottomPanelVisibility<span class="signature">(cylinder, isVisible)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Changes the visibility of the bottom <code>StackPanel</code></p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>cylinder</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Cylinder object containing all possible color values. Only the matching color buttons will be visible.</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>isVisible</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">boolean</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Visibility of the bottom panel</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line709">line 709</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="changeColor">
+        <a class="href-link" href="#changeColor">#</a>
+        
+        <span class="code-name">
+            
+                changeColor<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Changes the color the currently selected cylinder</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The new color of the cylinder. Object must contain RGB-values in range [0, 1]</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line690">line 690</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="createCylinderDragBehavior">
+        <a class="href-link" href="#createCylinderDragBehavior">#</a>
+        
+        <span class="code-name">
+            
+                createCylinderDragBehavior<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Creates the drag behavior which allows dragging the cylinders.
+This includes highlighting the cylinders depending on valid and invalid positions and the
+snapping behavior on one of the stacks</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line344">line 344</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="createCylinderMeshes">
+        <a class="href-link" href="#createCylinderMeshes">#</a>
+        
+        <span class="code-name">
+            
+                createCylinderMeshes<span class="signature">(cylinders)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Creates all cylinder meshes based on the properties read from the server.
+Depending on the available heights, all cylinder meshes are created dynamically.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>cylinders</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Cylinder configuration containing the available heights of the cylinders</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line298">line 298</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="createDeleteCylinderListener">
+        <a class="href-link" href="#createDeleteCylinderListener">#</a>
+        
+        <span class="code-name">
+            
+                createDeleteCylinderListener<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Creates a listener that will be executed when a cylinder is deleted.
+The listener updates both stacks and removes the associated mesh from the scene.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line651">line 651</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="createScene">
+        <a class="href-link" href="#createScene">#</a>
+        
+        <span class="code-name">
+            
+                createScene<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Creates the product configuration scene.</p>
+<ul>
+<li>Sets up the rendering pipeline</li>
+<li>Loads the plate mesh</li>
+<li>Creates all necessary cylinder meshes</li>
+<li>Sets up camera and lighting</li>
+<li>Creates the UI</li>
+<li>Sets up listeners for user interaction</li>
+</ul>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line162">line 162</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="layout">
+        <a class="href-link" href="#layout">#</a>
+        
+        <span class="code-name">
+            
+                layout<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Resizes the BabylonJS engine if it exists</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line779">line 779</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="placeCylinderOnDemand">
+        <a class="href-link" href="#placeCylinderOnDemand">#</a>
+        
+        <span class="code-name">
+            
+                placeCylinderOnDemand<span class="signature">(cylinder)</span><span class="type-signature"> &rarr; {boolean}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Places the cylinder on top of the nearest stack, if it is at a valid position.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>cylinder</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The cylinder to be placed</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line487">line 487</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><ul>
+<li>true if the cylinder could be placed on one stack, false otherwise</li>
+</ul></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<span class="param-type">boolean</span>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="registerOnClickAction">
+        <a class="href-link" href="#registerOnClickAction">#</a>
+        
+        <span class="code-name">
+            
+                registerOnClickAction<span class="signature">(cylinder)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Registers the action that will be executed when a cylinder will be clicked.
+The action displays GUI elements on demand which allows deletion and color-change of the currently selected cylinder.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>cylinder</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>The cylinder that the click-action will be registered on</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line510">line 510</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="resetConfigurator">
+        <a class="href-link" href="#resetConfigurator">#</a>
+        
+        <span class="code-name">
+            
+                resetConfigurator<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Restores a previous of the product configurator.
+This method recreates all meshes and cylinder positions based on the last saved configuration in the vuex-store.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line751">line 751</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="restoreScene">
+        <a class="href-link" href="#restoreScene">#</a>
+        
+        <span class="code-name">
+            
+                restoreScene<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Restores the scene after the view was left. This may occur when a customer configured a product,
+went to the order-view and then switched back to the configurator. The last configuration is read
+from the vuex-store and the scene will be restored</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line256">line 256</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="snapOnDemand">
+        <a class="href-link" href="#snapOnDemand">#</a>
+        
+        <span class="code-name">
+            
+                snapOnDemand<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>If the cylinder is dragged within close distance of a tower, it will snap on top of the tower.
+This will also highlight the mesh, indicating that it is placed at a valid location</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line386">line 386</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="spawnCylinder">
+        <a class="href-link" href="#spawnCylinder">#</a>
+        
+        <span class="code-name">
+            
+                spawnCylinder<span class="signature">(height, addDragBehavior)</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Spawns a new cylinder with the given height in the scene.
+Adds a listener on demand which allows dragging the cylinder.</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>height</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">number</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Height of the cylinder to be spawned</p></td>
+</tr>
+
+
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>addDragBehavior</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">boolean</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Flag that determines if the drag listener should be added</p></td>
+</tr>
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line319">line 319</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="updateSymbolHeights">
+        <a class="href-link" href="#updateSymbolHeights">#</a>
+        
+        <span class="code-name">
+            
+                updateSymbolHeights<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Updates the position of the meshes &quot;A&quot; and &quot;B&quot; which identify the both stacks.
+The position of the meshes is always be a fixed offset on top of the highest cylinder</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="components_configurator_ProductConfigurator.vue.html" class="button">View Source</a>
+            <span>
+                <a href="components_configurator_ProductConfigurator.vue.html">components/configurator/ProductConfigurator.vue</a>, <a href="components_configurator_ProductConfigurator.vue.html#line738">line 738</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+</body>
+</html>

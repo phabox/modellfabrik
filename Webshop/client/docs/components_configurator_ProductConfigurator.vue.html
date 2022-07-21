@@ -1,0 +1,923 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> components/configurator/ProductConfigurator.vue</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Configurator</h2><h3>Modules / Helper</h3><ul><li><a href="module-Assets.html">Assets</a></li><li><a href="module-Materials.html">Materials</a></li></ul><h3>Modules</h3><ul><li><a href="module-ConfigurationSummary.html">ConfigurationSummary</a></li><li><a href="module-ProductConfigurator.html">ProductConfigurator</a></li></ul></div><div class="category"><h2>Constants</h2><h3>Modules</h3><ul><li><a href="module-GraphQL.html">GraphQL</a></li><li><a href="module-Misc.html">Misc</a></li></ul></div><div class="category"><h2>Orders</h2><h3>Modules</h3><ul><li><a href="module-Order.html">Order</a></li><li><a href="module-OrderList.html">OrderList</a></li><li><a href="module-OrderPreview.html">OrderPreview</a></li></ul></div><div class="category"><h2>Shared</h2><h3>Modules</h3><ul><li><a href="module-Error.html">Error</a></li><li><a href="module-PageHeader.html">PageHeader</a></li></ul></div><div class="category"><h2>Views</h2><h3>Modules</h3><ul><li><a href="module-About.html">About</a></li><li><a href="module-NotFound.html">NotFound</a></li><li><a href="module-Orders.html">Orders</a></li><li><a href="module-Shop.html">Shop</a></li></ul></div><div class="category"><h2>Webshop</h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>components/configurator/ProductConfigurator.vue</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;template>
+  &lt;div class="Scene" v-resize="layout">
+    &lt;canvas
+      id="renderCanvas"
+      ref="canvas"
+      class="Scene-canvas"
+      touch-action="none"
+      oncontextmenu="return false"
+    >&lt;/canvas>
+  &lt;/div>
+&lt;/template>
+
+&lt;script>
+import {
+  Engine,
+  Scene,
+  ArcRotateCamera,
+  Vector2,
+  Vector3,
+  HemisphericLight,
+  Tools,
+  HighlightLayer,
+  Color3,
+  PointerDragBehavior,
+  Mesh,
+} from "@babylonjs/core";
+
+import { OBJFileLoader } from "@babylonjs/loaders/OBJ";
+OBJFileLoader.SKIP_MATERIALS = true;
+import "@babylonjs/loaders/STL";
+import { AssetsManager } from "@babylonjs/core/Misc/assetsManager";
+import { AdvancedDynamicTexture, Button, TextBlock } from "@babylonjs/gui/2D";
+import { StackPanel } from "@babylonjs/gui/2D/controls/stackPanel";
+import { Control } from "@babylonjs/gui/2D/controls/control";
+import { ActionManager } from "@babylonjs/core/Actions/actionManager";
+import { ExecuteCodeAction } from "@babylonjs/core/Actions/directActions";
+import { DefaultRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline";
+import {
+  loadPlateMesh,
+  loadSymbolAMesh,
+  loadSymbolBMesh,
+  createCylinder,
+} from "./lib/assets";
+import { createPlateMaterial, createCylinderMaterial } from "./lib/materials";
+
+import { StatusEnum, xRight, xLeft } from "../../constants/constants";
+import { mapGetters } from "vuex";
+import { EventBus } from "../../main";
+
+/**
+ * The company displays the product configurator.
+ * It shows an empty plate whichs allows stacking cylinders of different heights on top of each other
+ * The component fetches the settings of the scene from the backend server. This includes the possible heights and colors
+ * of the cylinders and also the maximum height of each cylinder stack
+ * 
+ * @category Configurator
+ * 
+ * @vue-data {Object} logik - Contains the logic of the scene. This includes the internal state of the configurator and the placed cylinders
+ * @vue-data {Object} babylon - Data that is necessary for the BabylonJS render library. Includes the canvas and the scene
+ * @vue-data {Object} scene - Contains basic elements of the scene such as light, meshes, and materials
+ * @vue-data {Object} gui - GUI information, such as panels and buttons
+ *
+ * @vue-computed {Object} settings - The cylinder property settings including available heights and colors
+ * @vue-computed {Object[]} leftCylinders - The cylinders objects on the left (A) stack
+ * @vue-computed {Object[]} rightCylinders - The cylinders objects on the right (B) stack
+ * @vue-computed {Object[]} allCylinders - The union of leftCylinders and rightCylinders
+ */
+
+export default {
+  name: "Scene",
+  components: {},
+  provide() {
+    return {
+      babylon: this.babylon,
+    };
+  },
+  computed: {
+    ...mapGetters([
+      "settings",
+      "allCylinders",
+      "leftCylinders",
+      "rightCylinders",
+    ]),
+  },
+
+  created() {
+    window.addEventListener("resize", () => this.layout());
+  },
+
+  data() {
+    return {
+      logik: {
+        selectedCylinder: null,
+        leftCylinders: null,
+        rightCylinders: null,
+        currentStatus: StatusEnum.NONE,
+      },
+      babylon: {
+        scene: null,
+        sceneReady: false,
+        canvas: null,
+      },
+      scene: {
+        camera: null,
+        plateMesh: null,
+        symbolAMesh: null,
+        symbolBMesh: null,
+        cylinderMeshes: new Map(),
+        plateMaterial: null,
+        cylinderMaterial: null,
+        highlightLayer: null,
+      },
+      gui: {
+        leftPanel: null,
+        bottomPanel: null,
+        colorButtons: new Map(),
+        deleteCylinderButton: null,
+      },
+    };
+  },
+
+  async mounted() {
+    await this.createScene();
+    this.logik.leftCylinders = [];
+    this.logik.rightCylinders = [];
+    this.logik.leftCylinders.height = 0;
+    this.logik.rightCylinders.height = 0;
+
+    if (this.allCylinders.length == 0) {
+      this.$store.commit("updateRightCylinders", this.logik.rightCylinders);
+      this.$store.commit("updateLeftCylinders", this.logik.leftCylinders);
+    } else {
+      this.restoreScene();
+    }
+    this.updateSymbolHeights();
+    this.babylon.sceneReady = true;
+    this.babylon.canvas = this.$refs.canvas;
+
+    this.engine.runRenderLoop(() => {
+      this.babylon.scene.render();
+    });
+
+    EventBus.$on("onSuccessfulOrder", () => {
+      this.resetConfigurator();
+    });
+  },
+  beforeDestroy() {
+    this.babylon.scene.dispose();
+    this.engine.dispose();
+  },
+
+  methods: {
+    /**
+     * Creates the product configuration scene.
+     * - Sets up the rendering pipeline
+     * - Loads the plate mesh
+     * - Creates all necessary cylinder meshes
+     * - Sets up camera and lighting
+     * - Creates the UI
+     * - Sets up listeners for user interaction
+     */
+    async createScene() {
+      this.engine = new Engine(
+        this.$refs.canvas,
+        true,
+        { preserveDrawingBuffer: true },
+        false
+      );
+      this.babylon.scene = new Scene(this.engine);
+      var camera = new ArcRotateCamera(
+        "camera",
+        -Math.PI / 2,
+        Tools.ToRadians(67),
+        300,
+        new Vector3(0, 50, 0),
+        this.babylon.scene
+      );
+      this.scene.camera = camera;
+      camera.useAutoRotationBehavior = true;
+      camera.autoRotationBehavior.idleRotationWaitTime = 10000;
+      camera.autoRotationBehavior.idleRotationSpeed = 0.25;
+      camera.lowerRadiusLimit = 250;
+      camera.upperRadiusLimit = 450;
+
+      camera.attachControl(this.$refs.canvas, true);
+      this.scene.highlightLayer = new HighlightLayer("hl1", this.babylon.scene);
+      new HemisphericLight("light1", new Vector3(1, 1, 0), this.babylon.scene);
+
+      this.babylon.scene.createDefaultEnvironment({
+        createGround: false,
+        createSkybox: true,
+        skyboxSize: 1000,
+        skyboxColor: new Color3(144 / 255, 202 / 255, 249 / 255),
+        enableGroundMirror: false,
+      });
+
+      var defaultPipeline = new DefaultRenderingPipeline(
+        "DefaultRenderingPipeline",
+        false, // HDR?
+        this.babylon.scene,
+        this.babylon.scene.cameras
+      );
+      defaultPipeline.samples = 1;
+      defaultPipeline.fxaaEnabled = false;
+
+      this.scene.plateMaterial = createPlateMaterial(this.babylon.scene);
+      this.scene.cylinderMaterial = createCylinderMaterial(this.babylon.scene);
+      var assetLoader = new AssetsManager(this.babylon.scene);
+      loadPlateMesh(
+        assetLoader,
+        (mesh) => (this.scene.plateMesh = mesh),
+        this.scene.plateMaterial
+      );
+      loadSymbolAMesh(assetLoader, (mesh) => {
+        this.scene.symbolAMesh = mesh;
+        this.scene.symbolAMesh.billboardMode = Mesh.BILLBOARDMODE_ALL;
+      });
+      loadSymbolBMesh(assetLoader, (mesh) => {
+        this.scene.symbolBMesh = mesh;
+        this.scene.symbolBMesh.billboardMode = Mesh.BILLBOARDMODE_ALL;
+      });
+      await assetLoader.loadAsync();
+      this.createCylinderMeshes(this.settings.cylinders);
+
+      var advancedTexture = AdvancedDynamicTexture.CreateFullscreenUI("gui");
+      var leftPanel = new StackPanel();
+      leftPanel.verticalAlignment = Control.VERTICAL_ALIGNMENT_CENTER;
+      leftPanel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_LEFT;
+      leftPanel.isVertical = true;
+      leftPanel.adaptWidthToChildren = true;
+      advancedTexture.addControl(leftPanel);
+      this.addHeader(leftPanel);
+      this.addCylinderButtons(this.settings.cylinders, leftPanel);
+      this.gui.leftPanel = leftPanel;
+      leftPanel.left = "25px";
+
+      var bottomPanel = new StackPanel();
+      bottomPanel.verticalAlignment = Control.VERTICAL_ALIGNMENT_BOTTOM;
+      bottomPanel.horizontalAlignment = Control.HORIZONTAL_ALIGNMENT_CENTER;
+      bottomPanel.isVertical = false;
+      bottomPanel.adaptHeightToChildren = true;
+      bottomPanel.isVisible = false;
+      bottomPanel.top = -20;
+      advancedTexture.addControl(bottomPanel);
+      this.gui.bottomPanel = bottomPanel;
+
+      this.addDeleteCylinderButton(bottomPanel);
+      this.addColorButtons(this.settings.cylinders, bottomPanel);
+    },
+
+    /**
+     * Restores the scene after the view was left. This may occur when a customer configured a product,
+     * went to the order-view and then switched back to the configurator. The last configuration is read
+     * from the vuex-store and the scene will be restored
+     */
+    restoreScene() {
+      var i;
+      var currentCylinder;
+      for (i = 0; i &lt; this.leftCylinders.length; i++) {
+        currentCylinder = this.leftCylinders[i];
+
+        this.spawnCylinder(currentCylinder.height, false);
+        this.logik.selectedCylinder.material.baseColor =
+          currentCylinder.material.baseColor;
+
+        this.logik.selectedCylinder.color = currentCylinder.color;
+        this.logik.selectedCylinder.position = currentCylinder.position;
+        this.logik.selectedCylinder.stack = currentCylinder.stack;
+        this.registerOnClickAction(this.logik.selectedCylinder);
+
+        this.logik.leftCylinders.push(this.logik.selectedCylinder);
+        this.logik.leftCylinders.height += currentCylinder.height;
+      }
+      for (i = 0; i &lt; this.rightCylinders.length; i++) {
+        currentCylinder = this.rightCylinders[i];
+
+        this.spawnCylinder(currentCylinder.height, false);
+        this.logik.selectedCylinder.material.baseColor =
+          currentCylinder.material.baseColor;
+        this.logik.selectedCylinder.color = currentCylinder.color;
+        this.logik.selectedCylinder.position = currentCylinder.position;
+        this.logik.selectedCylinder.stack = currentCylinder.stack;
+        this.registerOnClickAction(this.logik.selectedCylinder);
+
+        this.logik.rightCylinders.push(this.logik.selectedCylinder);
+        this.logik.rightCylinders.height += currentCylinder.height;
+      }
+      this.$store.commit("updateRightCylinders", this.logik.rightCylinders);
+      this.$store.commit("updateLeftCylinders", this.logik.leftCylinders);
+    },
+
+    /**
+     * Creates all cylinder meshes based on the properties read from the server.
+     * Depending on the available heights, all cylinder meshes are created dynamically.
+     *
+     * @param {Object} cylinders - Cylinder configuration containing the available heights of the cylinders
+     */
+    createCylinderMeshes(cylinders) {
+      cylinders.forEach((cylinder) => {
+        var mesh = createCylinder(
+          cylinder.height,
+          cylinder.colors[0],
+          this.scene.cylinderMaterial.clone(),
+          this.babylon.scene
+        );
+        mesh.config = cylinder;
+        mesh.isVisible = false;
+        this.scene.cylinderMeshes.set(cylinder.height, mesh);
+      });
+    },
+
+    /**
+     * Spawns a new cylinder with the given height in the scene.
+     * Adds a listener on demand which allows dragging the cylinder.
+     *
+     * @param {number} height - Height of the cylinder to be spawned
+     * @param {boolean} addDragBehavior - Flag that determines if the drag listener should be added
+     */
+    spawnCylinder(height, addDragBehavior) {
+      var baseMesh = this.scene.cylinderMeshes.get(height);
+      this.logik.selectedCylinder = baseMesh.clone();
+      this.logik.selectedCylinder.material = baseMesh.material.clone();
+      this.logik.selectedCylinder.config = baseMesh.config;
+      this.logik.selectedCylinder.color = this.logik.selectedCylinder.config.colors[0];
+      this.logik.selectedCylinder.isVisible = true;
+
+      this.logik.selectedCylinder.position = new Vector3(
+        0,
+        this.settings.maxHeight + this.logik.selectedCylinder.height / 2,
+        0
+      );
+      if (addDragBehavior) {
+        this.logik.selectedCylinder.addBehavior(
+          this.createCylinderDragBehavior()
+        );
+      }
+    },
+
+    /**
+     * Creates the drag behavior which allows dragging the cylinders.
+     * This includes highlighting the cylinders depending on valid and invalid positions and the
+     * snapping behavior on one of the stacks
+     */
+    createCylinderDragBehavior() {
+      var pointerDragBehavior = new PointerDragBehavior({
+        dragPlaneNormal: new Vector3(0, 0, 1),
+      });
+
+      pointerDragBehavior.onDragStartObservable.add((event) => {});
+      pointerDragBehavior.onDragObservable.add((event) => {
+        this.scene.highlightLayer.removeMesh(pointerDragBehavior.attachedNode);
+        this.snapOnDemand(pointerDragBehavior.attachedNode);
+      });
+      pointerDragBehavior.onDragEndObservable.add((event) => {
+        this.snapOnDemand(pointerDragBehavior.attachedNode);
+        if (this.placeCylinderOnDemand(pointerDragBehavior.attachedNode)) {
+          this.$store.commit("updateRightCylinders", this.logik.rightCylinders);
+          this.$store.commit("updateLeftCylinders", this.logik.leftCylinders);
+
+          this.registerOnClickAction(pointerDragBehavior.attachedNode);
+          this.logik.currentStatus = StatusEnum.NONE;
+          this.logik.selectedCylinder = null;
+
+          pointerDragBehavior.enabled = false;
+          this.gui.leftPanel.isVisible = true;
+          this.changeBottomPanelVisibility(null, false);
+          this.scene.highlightLayer.removeAllMeshes();
+        }
+      });
+      pointerDragBehavior.validateDrag = (targetPosition) => {
+        return (
+          targetPosition.y >= 0 &amp;&amp;
+          targetPosition.y &lt;= this.settings.maxHeight * 2 &amp;&amp;
+          targetPosition.x > xLeft - 200 &amp;&amp;
+          targetPosition.x &lt; xRight + 200
+        );
+      };
+
+      return pointerDragBehavior;
+    },
+
+    /**
+     * If the cylinder is dragged within close distance of a tower, it will snap on top of the tower.
+     * This will also highlight the mesh, indicating that it is placed at a valid location
+     */
+    snapOnDemand(cylinder) {
+      if (this.canPlaceLeft(cylinder, 20)) {
+        cylinder.position = new Vector3(
+          xLeft,
+          this.logik.leftCylinders.height + cylinder.height / 2,
+          0
+        );
+        this.scene.highlightLayer.addMesh(cylinder, Color3.Green());
+      } else if (this.canPlaceRight(cylinder, 10)) {
+        cylinder.position = new Vector3(
+          xRight,
+          this.logik.rightCylinders.height + cylinder.height / 2,
+          0
+        );
+        this.scene.highlightLayer.addMesh(cylinder, Color3.Green());
+      } else {
+        this.scene.highlightLayer.addMesh(cylinder, Color3.Red());
+      }
+    },
+
+    /**
+     * Calculates if the cylinder can be placed on top of the left stack
+     *
+     * @param {Object} cylinder - The cylinder that shall be placed
+     * @param {distanceTreshold} - The threshold to consider
+     *
+     * @returns {boolean} - true if the distance to the left stack is smaller than {@link distanceTheshold}, false otherwise
+     */
+    canPlaceLeft(cylinder, distanceThreshold) {
+      var x = cylinder.position.x;
+      var y = cylinder.position.y;
+
+      // position is the center of the mesh => calculate from bottom
+      y -= cylinder.height / 2;
+
+      if (this.logik.leftCylinders.length == this.settings.maxCylinders) {
+        return false;
+      }
+
+      if (
+        this.logik.leftCylinders.height + cylinder.height >
+        this.settings.maxHeight
+      ) {
+        return false;
+      }
+
+      var distance = Vector2.Distance(
+        new Vector2(x, y),
+        new Vector2(xLeft, this.logik.leftCylinders.height)
+      );
+      if (distance > distanceThreshold) {
+        return false;
+      }
+
+      return true;
+    },
+
+    /**
+     * Calculates if the cylinder can be placed on top of the left stack
+     *
+     * @param {Object} cylinder - The cylinder that shall be placed
+     * @param {distanceTreshold} - The threshold to consider
+     *
+     * @returns {boolean} - true if the distance to the left stack is smaller than {@link distanceTheshold}, false otherwise
+     */
+    canPlaceRight(cylinder, distanceThreshold) {
+      var x = cylinder.position.x;
+      var y = cylinder.position.y;
+
+      // position is the center of the mesh => calculate from bottom
+      y -= cylinder.height / 2;
+
+      if (this.logik.rightCylinders.length == this.settings.maxCylinders) {
+        return false;
+      }
+
+      if (
+        this.logik.rightCylinders.height + cylinder.height >
+        this.settings.maxHeight
+      ) {
+        return false;
+      }
+
+      var distance = Vector2.Distance(
+        new Vector2(x, y),
+        new Vector2(xRight, this.logik.rightCylinders.height)
+      );
+      if (distance > distanceThreshold) {
+        return false;
+      }
+
+      return true;
+    },
+
+    /**
+     * Places the cylinder on top of the nearest stack, if it is at a valid position.
+     *
+     * @param {object} cylinder - The cylinder to be placed
+     *
+     * @returns {boolean} - true if the cylinder could be placed on one stack, false otherwise
+     */
+    placeCylinderOnDemand(cylinder) {
+      if (this.canPlaceLeft(cylinder, 0)) {
+        this.logik.leftCylinders.push(cylinder);
+        this.logik.leftCylinders.height += cylinder.height;
+        cylinder.stack = 0;
+        this.updateSymbolHeights();
+        return true;
+      } else if (this.canPlaceRight(cylinder, 0)) {
+        this.logik.rightCylinders.push(cylinder);
+        this.logik.rightCylinders.height += cylinder.height;
+        cylinder.stack = 1;
+        this.updateSymbolHeights();
+        return true;
+      }
+      return false;
+    },
+
+    /**
+     * Registers the action that will be executed when a cylinder will be clicked.
+     * The action displays GUI elements on demand which allows deletion and color-change of the currently selected cylinder.
+     *
+     * @param {Object} cylinder - The cylinder that the click-action will be registered on
+     */
+    registerOnClickAction(cylinder) {
+      cylinder.actionManager = new ActionManager(this.babylon.scene);
+      cylinder.actionManager.registerAction(
+        new ExecuteCodeAction(
+          {
+            trigger: ActionManager.OnPickDownTrigger,
+          },
+          (evt) => {
+            if (this.logik.currentStatus != StatusEnum.PLACING_CYLINDER) {
+              this.scene.highlightLayer.removeAllMeshes();
+              if (evt.source != this.logik.selectedCylinder) {
+                this.scene.highlightLayer.addMesh(evt.source, Color3.Green());
+                this.logik.selectedCylinder = evt.source;
+                this.changeBottomPanelVisibility(evt.source, true);
+                this.logik.currentStatus = StatusEnum.CYLINDER_SELECTED;
+              } else {
+                this.logik.selectedCylinder = null;
+                this.changeBottomPanelVisibility(null, false);
+                this.logik.currentStatus = StatusEnum.NONE;
+              }
+            }
+          }
+        )
+      );
+    },
+
+    /**
+     * Adds buttons to the UI that allow changing color of a cylinder
+     *
+     * @param {Object} cylinders - The cylinder-configurations containg all available colors, that each cylinder can have
+     * @param {StackPanel} panel - Panel that the buttons will be added to
+     */
+    addColorButtons(cylinders, panel) {
+      cylinders.forEach((cylinder) => {
+        cylinder.colors.forEach((color) => {
+          var button = this.gui.colorButtons.get(color.name);
+          if (button == null) {
+            button = Button.CreateSimpleButton("color_" + color.name, "");
+            button.width = "60px";
+            button.height = "50px";
+            button.color = "white";
+            button.cornerRadius = 50;
+            button.paddingLeft = 10;
+            button.background = new Color3(
+              color.r,
+              color.g,
+              color.b
+            ).toHexString();
+            button.isVisible = true;
+            button.onPointerClickObservable.add(() => {
+              this.changeColor(color);
+              this.logik.selectedCylinder.color = color;
+            });
+            this.gui.colorButtons.set(color.name, button);
+            panel.addControl(button);
+          }
+        });
+      });
+    },
+
+    /**
+     * Adds a header to a panel
+     * @param {StackPanel} panel - The panel, that the header will be added to
+     */
+    addHeader(panel) {
+      var header = new TextBlock();
+      header.text = "Zylinder hinzufügen";
+      header.color = "white";
+      header.width = "160px";
+      header.height = "50px";
+      header.fontFamily = "Arial";
+      header.fontSize = 16;
+      panel.addControl(header);
+    },
+
+    /**
+     * Adds one button for each available cylinder height to a panel
+     *
+     * @param {Object} cylinders - The cylinder-configurations containg all available heights, that each cylinder can have
+     * @param {StackPanel} panel - The panel that the buttons will be added to
+     *
+     */
+    addCylinderButtons(cylinders, panel) {
+      cylinders.forEach((cylinder) => {
+        var button = Button.CreateSimpleButton(
+          "addCylinder_" + cylinder.height,
+          cylinder.height + " mm"
+        );
+        button.width = "140px";
+        button.height = "50px";
+        button.color = "white";
+        button.fontFamily = "Arial";
+        button.background = "#6c757d";
+        button.cornerRadius = 5;
+        button.paddingBottom = 15;
+        button.fontSize = 14;
+
+        button.onPointerClickObservable.add(() => {
+          this.spawnCylinder(cylinder.height, true);
+          this.scene.highlightLayer.removeAllMeshes();
+          this.scene.highlightLayer.addMesh(
+            this.logik.selectedCylinder,
+            Color3.Red()
+          );
+          this.gui.leftPanel.isVisible = false;
+          this.changeBottomPanelVisibility(this.logik.selectedCylinder, true);
+          this.logik.currentStatus = StatusEnum.PLACING_CYLINDER;
+        });
+        panel.addControl(button);
+      });
+    },
+
+    /**
+     * Adds a delete button to a panel
+     *
+     * @param {StackPanel} - The panel that the button will be added to
+     */
+    addDeleteCylinderButton(panel) {
+      var button = Button.CreateSimpleButton("deleteCylinder", "\uf014");
+      button.width = "80px";
+      button.height = "50px";
+      button.color = "white";
+      button.fontSize = 26;
+      button.fontWeight = 300;
+      button.fontFamily = "FontAwesome";
+      button.background = "#6c757d";
+      button.cornerRadius = 5;
+      button.thickness = 1;
+
+      button.paddingRight = "30px";
+      button.isVisible = true;
+
+      button.onPointerClickObservable.add(this.createDeleteCylinderListener());
+      panel.addControl(button);
+      this.gui.deleteCylinderButton = button;
+    },
+
+    /**
+     * Creates a listener that will be executed when a cylinder is deleted.
+     * The listener updates both stacks and removes the associated mesh from the scene.
+     */
+    createDeleteCylinderListener() {
+      return () => {
+        if (this.logik.currentStatus == StatusEnum.CYLINDER_SELECTED) {
+          var cylinderStack;
+          if (this.logik.selectedCylinder.stack == 0) {
+            cylinderStack = this.logik.leftCylinders;
+          } else {
+            cylinderStack = this.logik.rightCylinders;
+          }
+
+          const index = cylinderStack.indexOf(this.logik.selectedCylinder);
+
+          if (index > -1) {
+            cylinderStack.height -= this.logik.selectedCylinder.height;
+            for (var i = index + 1; i &lt; cylinderStack.length; i++) {
+              cylinderStack[i].position.y -= this.logik.selectedCylinder.height;
+            }
+            cylinderStack.splice(index, 1);
+            this.logik.selectedCylinder.dispose();
+            this.logik.selectedCylinder = null;
+            this.changeBottomPanelVisibility(null, false);
+            this.updateSymbolHeights();
+          } else {
+            return;
+          }
+        } else if (this.logik.currentStatus == StatusEnum.PLACING_CYLINDER) {
+          this.logik.selectedCylinder.dispose();
+          this.logik.currentStatus = StatusEnum.NONE;
+          this.changeBottomPanelVisibility(null, false);
+          this.gui.leftPanel.isVisible = true;
+        }
+      };
+    },
+
+    /**
+     * Changes the color the currently selected cylinder
+     *
+     * @param {Object} - The new color of the cylinder. Object must contain RGB-values in range [0, 1]
+     */
+    changeColor(color) {
+      if (this.logik.selectedCylinder) {
+        this.logik.selectedCylinder.material.baseColor = new Color3(
+          color.r,
+          color.g,
+          color.b
+        );
+        this.$store.commit("updateRightCylinders", this.logik.rightCylinders);
+        this.$store.commit("updateLeftCylinders", this.logik.leftCylinders);
+      }
+    },
+
+    /**
+     * Changes the visibility of the bottom {@link StackPanel}
+     *
+     * @param {Object} cylinder - Cylinder object containing all possible color values. Only the matching color buttons will be visible.
+     * @param {boolean} isVisible - Visibility of the bottom panel
+     *
+     */
+    changeBottomPanelVisibility(cylinder, isVisible) {
+      if (isVisible) {
+        this.gui.colorButtons.forEach((button) => {
+          button.isVisible = false;
+        });
+
+        cylinder.config.colors.forEach((color) => {
+          var button = this.gui.colorButtons.get(color.name);
+          if (button != null) {
+            button.isVisible = true;
+          }
+        });
+      } else {
+        this.gui.colorButtons.forEach((button) => {
+          button.isVisible = false;
+        });
+      }
+      this.gui.deleteCylinderButton.isVisible = isVisible;
+      this.gui.bottomPanel.isVisible = isVisible;
+
+      //Workaround für GUI-Bug, wenn Icons sich verschieben
+      this.gui.deleteCylinderButton.thickness = 0;
+      this.gui.deleteCylinderButton.thickness = 1;
+    },
+
+    /**
+     *  Updates the position of the meshes "A" and "B" which identify the both stacks.
+     *  The position of the meshes is always be a fixed offset on top of the highest cylinder
+     */
+    updateSymbolHeights() {
+      var maxHeight = Math.max(
+        this.logik.leftCylinders.height,
+        this.logik.rightCylinders.height
+      );
+      this.scene.symbolAMesh.position.y = this.scene.symbolBMesh.position.y =
+        maxHeight + 70;
+    },
+
+    /**
+     * Restores a previous of the product configurator.
+     * This method recreates all meshes and cylinder positions based on the last saved configuration in the vuex-store.
+     */
+    resetConfigurator() {
+      if (this.logik.selectedCylinder) {
+        this.logik.selectedCylinder.dispose();
+      }
+      this.logik.leftCylinders.forEach((cylinder) => {
+        cylinder.dispose();
+      });
+      this.logik.rightCylinders.forEach((cylinder) => {
+        cylinder.dispose();
+      });
+
+      this.logik.currentStatus = StatusEnum.NONE;
+
+      this.logik.leftCylinders = [];
+      this.logik.rightCylinders = [];
+      this.logik.leftCylinders.height = 0;
+      this.logik.rightCylinders.height = 0;
+      this.$store.commit("updateRightCylinders", this.logik.rightCylinders);
+      this.$store.commit("updateLeftCylinders", this.logik.leftCylinders);
+
+      this.gui.leftPanel.isVisible = true;
+      this.gui.bottomPanel.isVisible = false;
+      this.updateSymbolHeights();
+    },
+
+    /**
+     * Resizes the BabylonJS engine if it exists
+     */
+    layout() {
+      if (this.engine) this.engine.resize();
+    },
+  },
+};
+&lt;/script>
+
+&lt;style scoped>
+.Scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  background-color: white;
+  overflow: hidden;
+}
+.Scene-canvas {
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  outline: none;
+  display: flex;
+}
+&lt;/style></code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+</body>
+</html>

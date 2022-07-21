@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> GraphQL</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Configurator</h2><h3>Modules / Helper</h3><ul><li><a href="module-Assets.html">Assets</a></li><li><a href="module-Materials.html">Materials</a></li></ul><h3>Modules</h3><ul><li><a href="module-ConfigurationSummary.html">ConfigurationSummary</a></li><li><a href="module-ProductConfigurator.html">ProductConfigurator</a></li></ul></div><div class="category"><h2>Constants</h2><h3>Modules</h3><ul><li><a href="module-GraphQL.html">GraphQL</a></li><li><a href="module-Misc.html">Misc</a></li></ul></div><div class="category"><h2>Orders</h2><h3>Modules</h3><ul><li><a href="module-Order.html">Order</a></li><li><a href="module-OrderList.html">OrderList</a></li><li><a href="module-OrderPreview.html">OrderPreview</a></li></ul></div><div class="category"><h2>Shared</h2><h3>Modules</h3><ul><li><a href="module-Error.html">Error</a></li><li><a href="module-PageHeader.html">PageHeader</a></li></ul></div><div class="category"><h2>Views</h2><h3>Modules</h3><ul><li><a href="module-About.html">About</a></li><li><a href="module-NotFound.html">NotFound</a></li><li><a href="module-Orders.html">Orders</a></li><li><a href="module-Shop.html">Shop</a></li></ul></div><div class="category"><h2>Webshop</h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Module</p>
+                    <h1>GraphQL</h1>
+                </header>
+                
+
+
+
+
+<section>
+
+<header>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <div class='vertical-section'>
+            <h1>Members</h1>
+            <div class="members">
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">Object</span>
+
+
+    </span>
+
+<h4 class="name" id=".GET_ORDERS">
+    <a class="href-link" href="#.GET_ORDERS">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        GET_ORDERS
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Query to fetch the previously placed orders. The papge and the number are orders are variable in order to fetch a certain subset of orders.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="constants_graphql.js.html" class="button">View Source</a>
+            <span>
+                <a href="constants_graphql.js.html">constants/graphql.js</a>, <a href="constants_graphql.js.html#line54">line 54</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">Object</span>
+
+
+    </span>
+
+<h4 class="name" id=".GET_SETTINGS">
+    <a class="href-link" href="#.GET_SETTINGS">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        GET_SETTINGS
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Query to fetch the cylinder-settings. The settings include information such as heights and colors of the cylinders.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="constants_graphql.js.html" class="button">View Source</a>
+            <span>
+                <a href="constants_graphql.js.html">constants/graphql.js</a>, <a href="constants_graphql.js.html#line11">line 11</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">Object</span>
+
+
+    </span>
+
+<h4 class="name" id=".GET_STOCK">
+    <a class="href-link" href="#.GET_STOCK">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        GET_STOCK
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Query to fetch the amount of cylinders in the immediate and intermediate stock.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="constants_graphql.js.html" class="button">View Source</a>
+            <span>
+                <a href="constants_graphql.js.html">constants/graphql.js</a>, <a href="constants_graphql.js.html#line33">line 33</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">Object</span>
+
+
+    </span>
+
+<h4 class="name" id=".ORDER_CHANGED">
+    <a class="href-link" href="#.ORDER_CHANGED">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        ORDER_CHANGED
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Subscription that listens to changed orders. When a new order was changed, the subscription will listen for that changed order.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="constants_graphql.js.html" class="button">View Source</a>
+            <span>
+                <a href="constants_graphql.js.html">constants/graphql.js</a>, <a href="constants_graphql.js.html#line139">line 139</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">Object</span>
+
+
+    </span>
+
+<h4 class="name" id=".ORDER_CREATED">
+    <a class="href-link" href="#.ORDER_CREATED">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        ORDER_CREATED
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Subscription that listens to newly created orders. When a new order was created, the subscription will listen for that new order.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="constants_graphql.js.html" class="button">View Source</a>
+            <span>
+                <a href="constants_graphql.js.html">constants/graphql.js</a>, <a href="constants_graphql.js.html#line103">line 103</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">Object</span>
+
+
+    </span>
+
+<h4 class="name" id=".PRODUCE_ITEM">
+    <a class="href-link" href="#.PRODUCE_ITEM">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        PRODUCE_ITEM
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Mutation to produce a new item. The configured product is transmitted while return code and return message are fetched as a result.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="constants_graphql.js.html" class="button">View Source</a>
+            <span>
+                <a href="constants_graphql.js.html">constants/graphql.js</a>, <a href="constants_graphql.js.html#line90">line 90</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+                <div class="member">
+
+    <span class="method-parameter is-pulled-right">
+        <label>Type:</label>
+        
+<span class="param-type">Object</span>
+
+
+    </span>
+
+<h4 class="name" id=".STOCK_CHANGED">
+    <a class="href-link" href="#.STOCK_CHANGED">#</a>
+    
+        
+            <span class='tag'>static</span>
+        
+            <span class='tag'>constant</span>
+        
+    
+    <span class="code-name">
+        STOCK_CHANGED
+    </span>
+    
+</h4>
+
+
+
+
+<div class="description">
+    <p>Subscription that listens to changes at the stock. If cylinders are added or removed from the stock, the subscription will be notified about the stock changes and receive the new stock.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="constants_graphql.js.html" class="button">View Source</a>
+            <span>
+                <a href="constants_graphql.js.html">constants/graphql.js</a>, <a href="constants_graphql.js.html#line175">line 175</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+</body>
+</html>

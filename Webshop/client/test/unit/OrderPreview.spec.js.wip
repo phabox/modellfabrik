@@ -1,0 +1,106 @@
+import { mount, createLocalVue, shallowMount } from "@vue/test-utils";
+import Vuex from "vuex";
+import Orders from "../../src/views/Orders.vue";
+import OrderPreview from "../../src/components/orders/OrderPreview.vue";
+
+describe("OrderList not empty", () => {
+  let getters;
+  let store;
+  let localVue;
+
+  beforeEach(() => {
+    localVue = createLocalVue();
+    localVue.use(Vuex);
+
+    getters = {
+      fetchOrdersError: () => null,
+      selectedOrder: () => {
+        return {
+          _id: "5f8fdebe83ca6905e0718342",
+          orderName: "",
+          leftStack: [
+            {
+              position: 0,
+              height: 18,
+              color: { r: 0.85, g: 0.85, b: 0.85, name: "silber" },
+            },
+          ],
+          rightStack: [],
+          status: "FINISHED",
+          createdAt: "1577836800",
+          updatedAt: "1577836900",
+          __v: 0,
+        };
+      },
+      orders: () => [
+        {
+          _id: "5f8fdebe83ca6905e0718342",
+          orderName: "",
+          leftStack: [
+            {
+              position: 0,
+              height: 18,
+              color: { r: 0.85, g: 0.85, b: 0.85, name: "silber" },
+            },
+          ],
+          rightStack: [],
+          status: "FINISHED",
+          createdAt: "1577836800",
+          updatedAt: "1577836900",
+          __v: 0,
+        },
+      ],
+    };
+
+    store = new Vuex.Store({
+      getters,
+    });
+  });
+
+  it("OrderPreview does exist with an selected order", () => {
+    const wrapper = shallowMount(Orders, { store, localVue });
+    expect(wrapper.findComponent(OrderPreview).exists()).toBe(true);
+  });
+});
+
+describe("OrderList not empty", () => {
+  let getters;
+  let store;
+  let localVue;
+
+  beforeEach(() => {
+    localVue = createLocalVue();
+    localVue.use(Vuex);
+
+    getters = {
+      fetchOrdersError: () => null,
+      selectedOrder: () => null,
+      orders: () => [
+        {
+          _id: "5f8fdebe83ca6905e0718342",
+          orderName: "",
+          leftStack: [
+            {
+              position: 0,
+              height: 18,
+              color: { r: 0.85, g: 0.85, b: 0.85, name: "silber" },
+            },
+          ],
+          rightStack: [],
+          status: "FINISHED",
+          createdAt: "1577836800",
+          updatedAt: "1577836900",
+          __v: 0,
+        },
+      ],
+    };
+    store = new Vuex.Store({
+      getters,
+    });
+  });
+
+  it("OrderPreview does not exist wit no selected order", () => {
+    const wrapper = shallowMount(Orders, { store, localVue });
+    expect(wrapper.findComponent(OrderPreview).exists()).toBe(false);
+  });
+});

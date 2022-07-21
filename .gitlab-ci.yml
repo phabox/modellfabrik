@@ -1,0 +1,64 @@
+image: node:latest
+
+stages:
+  - build
+  - lint
+  - test
+  - pages
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - Webshop/server/node_modules/
+    - Webshop/client/node_modules/
+
+install_server:
+  stage: build
+  script:
+    - cd Webshop/server
+    - npm install
+
+install_client:
+  stage: build
+  script:
+    - cd Webshop/client
+    - npm install
+
+lint_client:
+  stage: lint
+  needs:
+    - install_client
+  script:
+    - cd Webshop/client
+    - npm run lint
+
+test_server:
+  stage: test
+  needs:
+    - install_server
+  script:
+    - cd Webshop/server
+    - npm test
+
+test_client:
+  stage: test
+  needs:
+    - install_client
+  script:
+    - cd Webshop/client
+    - npm test
+
+pages:
+  stage: pages
+  needs:
+    - install_client
+  script:
+    - cd Webshop/client 
+    - npm run docs
+    - mv docs ../../public
+  artifacts:
+    paths:
+      - public/
+  only:
+    - master
+

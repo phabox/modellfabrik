@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> components/orders/Order.vue</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Configurator</h2><h3>Modules / Helper</h3><ul><li><a href="module-Assets.html">Assets</a></li><li><a href="module-Materials.html">Materials</a></li></ul><h3>Modules</h3><ul><li><a href="module-ConfigurationSummary.html">ConfigurationSummary</a></li><li><a href="module-ProductConfigurator.html">ProductConfigurator</a></li></ul></div><div class="category"><h2>Constants</h2><h3>Modules</h3><ul><li><a href="module-GraphQL.html">GraphQL</a></li><li><a href="module-Misc.html">Misc</a></li></ul></div><div class="category"><h2>Orders</h2><h3>Modules</h3><ul><li><a href="module-Order.html">Order</a></li><li><a href="module-OrderList.html">OrderList</a></li><li><a href="module-OrderPreview.html">OrderPreview</a></li></ul></div><div class="category"><h2>Shared</h2><h3>Modules</h3><ul><li><a href="module-Error.html">Error</a></li><li><a href="module-PageHeader.html">PageHeader</a></li></ul></div><div class="category"><h2>Views</h2><h3>Modules</h3><ul><li><a href="module-About.html">About</a></li><li><a href="module-NotFound.html">NotFound</a></li><li><a href="module-Orders.html">Orders</a></li><li><a href="module-Shop.html">Shop</a></li></ul></div><div class="category"><h2>Webshop</h2><h3>Modules</h3><ul><li><a href="module-App.html">App</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>components/orders/Order.vue</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;template>
+  &lt;b-card
+    :header="orderId"
+    class="mt-3"
+    v-on:click="toggleSelection"
+    v-bind:class="{ cardHighlight: isSelected }"
+  >
+    &lt;div class="media align-items-stretch">
+      &lt;div class="mr-5 w-50 align-self-center">
+        &lt;b-row v-if="orderName">
+          &lt;b-col>
+            &lt;span class="text-muted">Name: &lt;/span>
+          &lt;/b-col>
+          &lt;b-col class="orderName">
+            {{ orderName }}
+          &lt;/b-col>
+        &lt;/b-row>
+        &lt;b-row>
+          &lt;b-col>
+            &lt;span class="text-muted created">Erstellt: &lt;/span>
+          &lt;/b-col>
+          &lt;b-col>
+            {{ createdDate }}
+          &lt;/b-col>
+        &lt;/b-row>
+        &lt;b-row>
+          &lt;b-col>
+            &lt;span class="text-muted updated">Aktualisiert: &lt;/span>
+          &lt;/b-col>
+          &lt;b-col>
+            {{ updatedDate }}
+          &lt;/b-col>
+        &lt;/b-row>
+      &lt;/div>
+
+      &lt;b-media-body class="align-self-center">
+        &lt;h5>{{ statusDescription }}&lt;/h5>
+        &lt;span class="numberOfParts">{{ numberOfParts }} Komponente(n)&lt;/span>
+      &lt;/b-media-body>
+      &lt;div class="align-self-center">
+        &lt;font-awesome-icon
+          v-if="order.status == OrderStatus.PENDING"
+          :icon="['far', 'clock']"
+          size="2x"
+        />
+        &lt;font-awesome-icon
+          v-else-if="order.status == OrderStatus.IN_PRODUCTION"
+          :icon="['fas', 'wrench']"
+          size="2x"
+        />
+        &lt;font-awesome-icon
+          v-else-if="order.status == OrderStatus.FINISHED"
+          :icon="['far', 'check-circle']"
+          size="2x"
+        />
+      &lt;/div>
+    &lt;/div>
+  &lt;/b-card>
+&lt;/template>
+
+&lt;script>
+import { OrderStatus } from "../../constants/constants";
+import { mapGetters } from "vuex";
+
+/**
+ * This component represents a single order. All information about the order such as id, creation date and status will be displayed within a card.
+ *
+ * @category Orders
+ * 
+ * @vue-data {Object} OrderStatus - Enum containing every possible order status
+ * 
+ * @vue-computed {string} selectedOrder - ID of the currently selected order
+ * @vue-computed {string} orderId - Formatted ID of this order
+ * @vue-computed {string} orderName - Name of this order
+ * @vue-computed {Date} createdDate - The creation date of this order
+ * @vue-computed {Date} updateDate - The date with the last update of this order
+ * @vue-computed {string} statusDescription - Description of the current production-status
+ * @vue-computed {number} numberOfParts - The number of cylinders used within this order
+ * @vue-computed {string} status - The current status of this order, which matches one of the values in the {@link OrderStatus} enum
+ * @vue-computed {string} isSelected - Indicating if this order is currently selected in the {@link OrderList}
+ */
+export default {
+  name: "Order",
+  data() {
+    return {
+      OrderStatus: OrderStatus,
+    };
+  },
+  props: ["order"],
+  computed: {
+    ...mapGetters(["selectedOrder"]),
+    orderId: function() {
+      return "ID: " + this.order._id;
+    },
+    orderName: function() {
+      return this.order.orderName;
+    },
+    createdDate: function() {
+      return new Date(Number(this.order.createdAt)).toLocaleString([], {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    },
+    updatedDate: function() {
+      return new Date(Number(this.order.updatedAt)).toLocaleString([], {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    },
+    statusDescription: function() {
+      var status = this.order.status;
+      switch (status) {
+        case OrderStatus.PENDING:
+          return "Ausstehend";
+        case OrderStatus.IN_PRODUCTION:
+          return "In Produktion";
+        case OrderStatus.FINISHED:
+          return "Fertiggestellt";
+        default:
+          return status;
+      }
+    },
+    numberOfParts: function() {
+      return this.order.leftStack.length + this.order.rightStack.length;
+    },
+    status: function() {
+      return this.order.status;
+    },
+    isSelected: function() {
+      return this.order == this.selectedOrder;
+    },
+  },
+  methods: {
+    /**
+     * Marks the current order, if it was not selected. Otherwise unselects the current order.
+     */
+    toggleSelection() {
+      if (this.order == this.selectedOrder) {
+        this.$store.commit("setSelectedOrder", null);
+      } else {
+        this.$store.commit("setSelectedOrder", this.order);
+      }
+    },
+  },
+};
+&lt;/script>
+
+&lt;style>
+.card {
+  cursor: pointer;
+}
+
+.cardHighlight {
+  outline-color: rgb(0, 123, 255);
+  outline-style: solid;
+  outline-width: medium;
+}
+&lt;/style>
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+</body>
+</html>

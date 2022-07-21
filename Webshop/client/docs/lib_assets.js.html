@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> lib/assets.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Configurator</h2><h3>Modules / Helper</h3><ul><li><a href="module-Assets.html">Assets</a></li><li><a href="module-Materials.html">Materials</a></li></ul><h3>Modules</h3><ul><li><a href="module-ConfigurationSummary.html">ConfigurationSummary</a></li><li><a href="module-ProductConfigurator.html">ProductConfigurator</a></li></ul></div><div class="category"><h2>Orders</h2><h3>Modules</h3><ul><li><a href="module-Order.html">Order</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>lib/assets.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Vector3, MeshBuilder, CSG, Mesh, Color3 } from "@babylonjs/core";
+import { xRight, xLeft } from "../../shared/constants";
+
+/**
+ * @module Assets
+ * @category Configurator
+ * @subcategory Helper
+ */
+
+/**
+ * Creates a cylinder-mesh with the provided height, color and material.
+ *
+ * @param {number} height - Height of the cylinder without the cone
+ * @param {Color3} color - The color of the cylinder. RGB-values must be in range [0, 1].
+ * @param {PBRMetallicRoughnessMaterial} material - Material of the cylinder
+ * @param {Scene} scene - The scene, the cylinder will be added to
+ */
+export function createCylinder(height, color, material, scene) {
+  var cylinder = createCsgCylinder(height, material, scene);
+  cylinder.height = height;
+  cylinder.material.baseColor = new Color3(color.r, color.g, color.b);
+  return cylinder;
+}
+
+/**
+ * Creates a cylinder mesh using Constructive Solid Geometry
+ * @see {@link https://doc.babylonjs.com/typedoc/classes/babylon.csg}
+ *
+ * @param {number} height - Height of the cylinder without the cone
+ * @param {PBRMetallicRoughnessMaterial} material - Material of the cylinder
+ * @param {Scene} scene - The scene, the cylinder will be added to
+ */
+function createCsgCylinder(height, material, scene) {
+  //height is reduced in order to have visible separation between cylinders when stacking them
+  height -= 0.75;
+
+  var cylinderDiameter = 40;
+  var tipHeight = 5;
+  var tipDiameterBottom = 20;
+  var tipDiameterTop = 14;
+  var cylinderTesselation = 24;
+  var coneTesselation = 24;
+
+  var bottom = MeshBuilder.CreateCylinder(
+    "cylinder",
+    {
+      height: height,
+      diameterBottom: cylinderDiameter,
+      diameterTop: cylinderDiameter,
+      tessellation: cylinderTesselation,
+    },
+    scene
+  );
+  var top = MeshBuilder.CreateCylinder(
+    "cone",
+    {
+      height: tipHeight,
+      diameterBottom: tipDiameterBottom,
+      diameterTop: tipDiameterTop,
+      tessellation: coneTesselation,
+    },
+    scene
+  );
+  top.position.y = height / 2 + tipHeight / 2 - height;
+  var bottomCsg = CSG.FromMesh(bottom);
+  var topCsg = CSG.FromMesh(top);
+  var sub = bottomCsg.subtract(topCsg);
+  var bottomNew = sub.toMesh("csg", material, scene);
+  top.position.y = height / 2 + tipHeight / 2;
+  var csgCylinder = Mesh.MergeMeshes([bottomNew, top]);
+  csgCylinder.material = material;
+  scene.removeMesh(bottom);
+
+  return csgCylinder;
+}
+
+/**
+ * Creates a cylinder mesh using Constructive Solid Geometry
+ * @see {@link https://doc.babylonjs.com/divingDeeper/mesh/creation/param/lathe}
+ *
+ * @param {number} height - Height of the cylinder without the cone
+ * @param {PBRMetallicRoughnessMaterial} material - Material of the cylinder
+ * @param {Scene} scene - The scene, the cylinder will be added to
+ */
+function createLatheCylinder(height, material, scene) {
+  var shape = [
+    new Vector3(0, 5, 0),
+    new Vector3(7, 5, 0),
+    new Vector3(10, 0, 0),
+    new Vector3(20, 0, 0),
+    new Vector3(20, height, 0),
+    new Vector3(10, height, 0),
+    new Vector3(7, height + 5, 0),
+    new Vector3(0, height + 5, 0),
+    new Vector3(0, 5, 0),
+  ];
+  var latheCylinder = MeshBuilder.CreateLathe(
+    "cylinder_" + height,
+    { shape: shape },
+    scene
+  );
+  latheCylinder.material = material;
+  return latheCylinder;
+}
+
+/**
+ * Loads the plate mesh that the cylinders will be stacked on
+ * @param {AssetsManager} assetLoader - Babylon AssetsManager that loads meshes from various types
+ * @param {function(Mesh):void} callback - The callback that will be called after the mesh was loaded successfully. The mesh is passed as a parameter into the callback 
+ * @param {PBRMetallicRoughnessMaterial} plateMaterial - Material of the plate
+ */
+export function loadPlateMesh(assetLoader, callback, plateMaterial) {
+  var plate = assetLoader.addMeshTask(
+    "",
+    "",
+    process.env.BASE_URL + "assets/",
+    "plate.obj"
+  );
+  plate.onSuccess = function() {
+    var plateMesh = plate.loadedMeshes[0];
+    plateMesh.scaling = new Vector3(0.7, 0.7, 0.7);
+    plateMesh.setPositionWithLocalVector(new Vector3(-75, 0, 0));
+    plateMesh.rotation.x = -Math.PI / 2;
+    plateMesh.material = plateMaterial;
+
+    callback(plateMesh);
+  };
+}
+
+/**
+ * Loads the "A" symbol mesh, that will be used to distinguish both stacks of the plate
+ * 
+ * @param {AssetsManager} assetLoader -  Babylon AssetsManager that loads meshes from various types
+ * @param {function(Mesh):void} callback - Callback that will be executed after the mesh was loaded. The mesh will be passed into the function
+ */
+export function loadSymbolAMesh(assetLoader, callback) {
+  var symbolA = assetLoader.addMeshTask(
+    "",
+    "",
+    process.env.BASE_URL + "assets/",
+    "A.stl"
+  );
+  symbolA.onSuccess = function() {
+    var symbolAMesh = symbolA.loadedMeshes[0];
+
+    symbolAMesh.rotation.x = -Math.PI / 2;
+    symbolAMesh.position = new Vector3(xLeft, 70, 4);
+    symbolAMesh.scaling = new Vector3(2, 2, 2);
+    callback(symbolAMesh);
+  };
+}
+
+/**
+ * Loads the "B" symbol mesh, that will be used to distinguish both stacks of the plate
+ * 
+ * @param {AssetsManager} assetLoader -  Babylon AssetsManager that loads meshes from various types
+ * @param {function(Mesh):void} callback - Callback that will be executed after the mesh was loaded. The mesh will be passed into the function
+ */
+export function loadSymbolBMesh(assetLoader, callback) {
+  var symbolB = assetLoader.addMeshTask(
+    "",
+    "",
+    process.env.BASE_URL + "assets/",
+    "B.stl"
+  );
+  symbolB.onSuccess = function() {
+    var symbolBMesh = symbolB.loadedMeshes[0];
+
+    symbolBMesh.rotation.x = -Math.PI / 2;
+    symbolBMesh.position = new Vector3(xRight, 70, 4);
+    symbolBMesh.scaling = new Vector3(2, 2, 2);
+    callback(symbolBMesh);
+  };
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+</body>
+</html>
